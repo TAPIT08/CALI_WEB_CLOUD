@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercise Coach Web</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="header">
+            <div>
+                <h1>Exercise Quest</h1>
+                <p class="subtitle">Gamified form coaching with personalized programs and live feedback.</p>
+            </div>
+        </header>
+
+        <div class="layout">
+            <aside class="sidebar left-sidebar">
+                <section class="dashboard-card hidden" id="dashboard-card">
+                    <div class="stat-block">
+                        <h2 id="dashboard-name">Athlete</h2>
+                        <p id="dashboard-level">Level 1</p>
+                        <p id="dashboard-xp">0 XP • 100 to next level</p>
+                    </div>
+                    <div class="stat-block">
+                        <h3>Streaks</h3>
+                        <ul id="streaks-list" class="chip-list"></ul>
+                    </div>
+                    <div class="stat-block">
+                        <h3>Coach Suggestions</h3>
+                        <ul id="suggestions-list" class="bullet-list"></ul>
+                    </div>
+                    <div class="stat-block">
+                        <h3>Progress Timeline</h3>
+                        <ul id="timeline-list" class="timeline-list"></ul>
+                    </div>
+                </section>
+
+                <section class="preferences-card hidden" id="preferences-card">
+                    <h2>Workout Preferences</h2>
+                    <form id="preferences-form" class="control-form">
+                        <div class="field-group">
+                            <label for="pref-level">Coaching level</label>
+                            <select id="pref-level" name="level">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <span>Focus exercises</span>
+                            <div class="checkbox-grid">
+                                <label><input type="checkbox" value="pushup" checked> Push-up</label>
+                                <label><input type="checkbox" value="pullup" checked> Pull-up</label>
+                                <label><input type="checkbox" value="squat" checked> Squat</label>
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <label for="pref-daily-goal">Daily rep goal</label>
+                            <input id="pref-daily-goal" type="number" min="1" value="20">
+                            <label class="switch"><input id="pref-smart-goal" type="checkbox" checked> Smart goal ramp</label>
+                        </div>
+                        <div class="field-row">
+                            <label for="pref-timezone">Timezone</label>
+                            <input id="pref-timezone" type="text" value="UTC">
+                            <label for="pref-reminder-hour">Reminder hour</label>
+                            <input id="pref-reminder-hour" type="number" min="0" max="23" value="9">
+                            <label class="switch"><input id="pref-allow-notifications" type="checkbox" checked> Allow reminders</label>
+                        </div>
+                        <div class="button-row">
+                            <button type="submit" class="primary">Save preferences</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="controls hidden" id="controls-card">
+                    <h2>Session Controls</h2>
+                    <form id="control-form" class="control-form">
+                        <div class="field-group">
+                            <label for="exercise">Exercise</label>
+                            <select id="exercise" name="exercise">
+                                <option value="all">Auto detect</option>
+                                <option value="pushup">Push-up</option>
+                                <option value="pullup">Pull-up</option>
+                                <option value="squat">Squat</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label for="level">Session intensity</label>
+                            <select id="level" name="level">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label for="camera">Camera index</label>
+                            <input id="camera" name="camera" type="number" value="-1" step="1">
+                            <span class="hint">Use -1 to auto select the first available camera.</span>
+                        </div>
+                        <div class="field-row">
+                            <label><input id="show-skeleton" type="checkbox" checked> Show skeleton</label>
+                            <label><input id="show-metrics" type="checkbox" checked> Show metrics</label>
+                        </div>
+                        <div class="field-row">
+                            <label for="detection-stride">Detection stride</label>
+                            <input id="detection-stride" type="number" value="3" min="1">
+                            <label for="pose-stride">Pose stride</label>
+                            <input id="pose-stride" type="number" value="1" min="1">
+                        </div>
+                        <div class="goal-row">
+                            <span>Daily goal:</span>
+                            <strong id="goal-value">20 reps</strong>
+                        </div>
+                        <div class="button-row">
+                            <button id="start-btn" type="submit" class="primary">Start Session</button>
+                            <button id="stop-btn" type="button" class="secondary">Stop Session</button>
+                        </div>
+                    </form>
+                </section>
+            </aside>
+
+            <main class="main-stage">
+                <section class="stream hidden" id="stream-card">
+                    <div class="stream-hud">
+                        <div class="status floating-status hidden" id="status-panel">
+                            <div class="status-row">
+                                <span class="label">Status:</span>
+                                <span id="status-text" class="value">Idle</span>
+                            </div>
+                            <div class="status-row">
+                                <span class="label">FPS:</span>
+                                <span id="fps-value" class="value">0.0</span>
+                            </div>
+                            <div class="status-row">
+                                <span class="label">Reps:</span>
+                                <span id="rep-value" class="value">0</span>
+                            </div>
+                        </div>
+                        <img id="stream-image" alt="Live stream" class="stream-view" src=""/>
+                    </div>
+                </section>
+
+                <section class="feedback hidden" id="feedback-panel">
+                    <h2>Live Feedback</h2>
+                    <ul id="feedback-list"></ul>
+                </section>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <section class="history-card hidden" id="history-card">
+                    <h2>Recent Sessions</h2>
+                    <ul id="history-list" class="list"></ul>
+                </section>
+
+                <section class="achievements-card hidden" id="achievements-card">
+                    <h2>Achievements</h2>
+                    <ul id="achievements-list" class="list"></ul>
+                </section>
+
+                <section class="reminders-card hidden" id="reminders-card">
+                    <h2>Reminders</h2>
+                    <form id="reminder-form" class="inline-form">
+                        <input id="reminder-message" type="text" placeholder="Reminder message" required>
+                        <input id="reminder-datetime" type="datetime-local" required>
+                        <button type="submit" class="secondary">Schedule</button>
+                    </form>
+                    <ul id="reminders-list" class="list"></ul>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <script src="/static/app.js" type="module"></script>
+</body>
+</html>

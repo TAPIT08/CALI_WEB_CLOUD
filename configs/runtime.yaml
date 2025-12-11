@@ -1,0 +1,42 @@
+frame:
+  target_width: 720
+  pose_stride: 1
+  detection_stride: 3
+  flip: false
+  mirror: false
+latency:
+  smoothing_window: 5
+  debounce_frames: 6
+  overlay_alpha: 0.75
+  use_gpu: auto
+  cpu_cores: auto
+mediapipe:
+  model_complexity: 1
+  smooth_landmarks: true
+  enable_segmentation: false
+  min_detection_confidence: 0.5
+  min_tracking_confidence: 0.5
+yolo:
+  conf_threshold: 0.35
+  iou_threshold: 0.5
+  max_det: 5
+feedback:
+  cooldown_frames: 20
+  history_size: 30
+display:
+  show_metrics: true
+  show_skeleton: true
+  allow_smart_switch: true
+  log_stats: false
+  font_scale: 0.6
+  metric_font_scale: 0.5
+  hud_margin: 16
+  skeleton_primary_thickness: 3
+  skeleton_secondary_thickness: 1
+audio:
+  enable_tts: true
+  enable_beep: true
+  voice_rate: 175
+  warning_cooldown_seconds: 4
+  beep_volume: 0.8
+  announce_reps_tts: false

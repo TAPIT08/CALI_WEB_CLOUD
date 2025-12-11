@@ -1,0 +1,57 @@
+pushup:
+  beginner:
+    elbow_down_angle: 85
+    elbow_up_angle: 155
+    hip_angle_min: 165
+    hip_drop_max_ratio: 0.14
+    tempo_min_frames: 12
+  intermediate:
+    elbow_down_angle: 75
+    elbow_up_angle: 160
+    hip_angle_min: 170
+    hip_drop_max_ratio: 0.12
+    tempo_min_frames: 18
+  advanced:
+    elbow_down_angle: 65
+    elbow_up_angle: 165
+    hip_angle_min: 173
+    hip_drop_max_ratio: 0.10
+    tempo_min_frames: 24
+pullup:
+  beginner:
+    chin_over_bar_ratio: 0.05
+    elbow_top_angle: 75
+    elbow_bottom_angle: 155
+    shoulder_engagement_ratio: 0.08
+    tempo_min_frames: 15
+  intermediate:
+    chin_over_bar_ratio: 0.03
+    elbow_top_angle: 65
+    elbow_bottom_angle: 160
+    shoulder_engagement_ratio: 0.06
+    tempo_min_frames: 20
+  advanced:
+    chin_over_bar_ratio: 0.01
+    elbow_top_angle: 55
+    elbow_bottom_angle: 165
+    shoulder_engagement_ratio: 0.05
+    tempo_min_frames: 26
+squat:
+  beginner:
+    knee_bottom_angle: 95
+    knee_top_angle: 165
+    hip_depth_ratio: 0.90
+    knee_valgus_ratio: 0.10
+    torso_forward_angle: 40
+  intermediate:
+    knee_bottom_angle: 85
+    knee_top_angle: 170
+    hip_depth_ratio: 0.85
+    knee_valgus_ratio: 0.08
+    torso_forward_angle: 35
+  advanced:
+    knee_bottom_angle: 80
+    knee_top_angle: 175
+    hip_depth_ratio: 0.80
+    knee_valgus_ratio: 0.06
+    torso_forward_angle: 30

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cali-exercise-coach
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.server.app:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    region: oregon
+    healthCheckPath: /
+    rootDir: .
+    envVars:
+      - key: PYTHONWARNINGS
+        value: ignore
+      - key: UVICORN_WORKERS
+        value: "2"
