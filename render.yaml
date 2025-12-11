@@ -12,5 +12,5 @@ services:
     envVars:
       - key: PYTHONWARNINGS
         value: ignore
-      - key: UVICORN_WORKERS
-        value: "2"
+      - key: WEB_CONCURRENCY
+        value: "2
