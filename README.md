@@ -2,6 +2,8 @@
 
 This project integrates YOLOv8-based exercise identification with MediaPipe Pose-based form analysis to provide real-time feedback for push-ups, pull-ups, and squats. The system supports three skill levels (beginner, intermediate, advanced) with level-appropriate thresholds and coaching cues.
 
+It now includes a Streamlit front-end for quick local demos and optional Streamlit Cloud deployment.
+
 ## Features
 - Real-time webcam feed ingestion (any OpenCV-compatible camera).
 - Interactive configuration panel to pick the target exercise, user level, camera, and UI/audio preferences before every session.
@@ -30,6 +32,19 @@ Place your trained YOLOv8 exercise detection checkpoint (e.g., `yolov8n-exercise
 ```powershell
 python -m src.main
 ```
+### 3b. Run the Streamlit App
+
+Start the browser-based Streamlit UI that wraps the same pipeline and displays annotated frames:
+
+```powershell
+streamlit run streamlit_app.py
+```
+
+Notes:
+- Ensure `weights/yolov8n-exercise.pt` exists.
+- Use the sidebar to select camera, exercise focus, and level.
+- The Streamlit app uses the same `configs/runtime.yaml` and `configs/exercise_levels.yaml`.
+
 
 - Press `q` to exit the preview window.
 - Press `1` (prioritize squat) or `2` (prioritize pull-up) when you see the standing prompt.
@@ -70,6 +85,14 @@ For Azure App Service or AWS Elastic Beanstalk:
 2. Upload the repo (ZIP deployment or CI pipeline) with the `weights/` directory intact.
 3. Set the startup command to `uvicorn src.server.app:app --host 0.0.0.0 --port 8000`.
 4. Configure application settings for camera access or route to a network video stream as needed.
+
+### Streamlit Cloud
+
+Deploy the Streamlit UI on Streamlit Cloud:
+- Set the entry point to `streamlit_app.py`.
+- Ensure `requirements.txt` includes `streamlit` (already added).
+- Provide access to `weights/yolov8n-exercise.pt` (upload, or download at startup using secrets).
+
 
 ## Configuration Highlights
 - Exercise heuristics are defined in `configs/exercise_levels.yaml`.
